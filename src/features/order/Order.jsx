@@ -1,16 +1,27 @@
 // Test ID: IIDSAT
 
+import { useFetcher, useLoaderData } from 'react-router-dom'
 import OrderItem from './OrderItem'
-import { useLoaderData } from 'react-router-dom'
 import { getOrder } from '../../services/apiRestaurant'
 import {
     calcMinutesLeft,
     formatCurrency,
     formatDate,
 } from '../../utils/helpers'
+import { useEffect } from 'react'
+import UpdateOrder from './UpdateOrder'
 
 function Order() {
     const order = useLoaderData()
+
+    const fetcher = useFetcher()
+
+    useEffect(
+        function () {
+            if (!fetcher.data && fetcher.state === 'idle') fetcher.load('/menu')
+        },
+        [fetcher]
+    )
     // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
     const {
         id,
@@ -41,11 +52,26 @@ function Order() {
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-2 bg-stone-200 px-6 py-5">
-                <p className="font-medium">
-                    {deliveryIn >= 0
-                        ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
-                        : 'Order should have arrived'}
-                </p>
+                <div className="font-medium">
+                    {deliveryIn >= 0 ? (
+                        <div className="flex items-center gap-2">
+                            <p className="font-medium">
+                                Only {calcMinutesLeft(estimatedDelivery)}{' '}
+                                minutes left
+                            </p>
+                            <span>
+                                <img
+                                    className="h-4 w-4"
+                                    src="https://cdn-icons-png.flaticon.com/512/3073/3073484.png"
+                                    alt="⌛"
+                                />
+                            </span>
+                        </div>
+                    ) : (
+                        'Order should have arrived'
+                    )}
+                </div>
+
                 <p className="text-xs text-stone-500">
                     (Estimated delivery: {formatDate(estimatedDelivery)})
                 </p>
@@ -53,7 +79,15 @@ function Order() {
 
             <ul className="divide-y divide-stone-200 border-b border-t border-stone-200">
                 {cart.map((item) => (
-                    <OrderItem item={item} key={item.pizzaId} />
+                    <OrderItem
+                        item={item}
+                        key={item.pizzaId}
+                        isLoadingIngredients={fetcher.state === 'loading'}
+                        ingredients={
+                            fetcher?.data?.find((el) => el.id === item.pizzaId)
+                                ?.ingredients ?? []
+                        }
+                    />
                 ))}
             </ul>
 
@@ -71,6 +105,7 @@ function Order() {
                     {formatCurrency(orderPrice + priorityPrice)}
                 </p>
             </div>
+            {!priority && <UpdateOrder order={order} />}
         </div>
     )
 }
