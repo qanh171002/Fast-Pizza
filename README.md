@@ -9,7 +9,7 @@ Fast Pizza Co. là một trang web đơn giản được thiết kế để gi�
 - **Vite**
 
 ## Link Deploy
-Trang web đã được triển khai và có thể truy cập tại: [Fast Pizza Co.]([https://fast-pizza-1710.netlify.app/]))
+Trang web đã được triển khai và có thể truy cập tại: [Fast Pizza Co.](https://fast-pizza-1710.netlify.app/)
 
   
 
