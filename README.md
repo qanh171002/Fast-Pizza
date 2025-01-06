@@ -1,10 +1,15 @@
-# React + Vite
+# Fast Pizza Co.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Mô tả dự án
+Fast Pizza Co. là một trang web đơn giản được thiết kế để giới thiệu dịch vụ giao bánh pizza nhanh. Dự án được xây dựng nhằm mang lại trải nghiệm trực quan, hiện đại với thiết kế tối ưu cho cả thiết bị di động và máy tính.
 
-Currently, two official plugins are available:
+## Tech Stack
+- **TailwindCSS**
+- **React**
+- **Vite**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Link Deploy
+Trang web đã được triển khai và có thể truy cập tại: [Fast Pizza Co.]([https://fast-pizza-1710.netlify.app/]))
+
   
-Demo: https://fast-pizza-1710.netlify.app/
+
